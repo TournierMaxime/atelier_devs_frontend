@@ -1,7 +1,7 @@
 import ResetPasswordAccount from "../../components/Profil/ResetPasswordAccount";
 
-export default function ResetPasswordToken({ id, message }) {
-  return <ResetPasswordAccount message={message} id={id} />;
+export default function ResetPasswordToken({ id }) {
+  return <ResetPasswordAccount id={id} />;
 }
 
 export async function getServerSideProps(context) {
@@ -11,6 +11,6 @@ export async function getServerSideProps(context) {
   );
   const message = await res.json();
   return {
-    props: { message, id },
+    props: { id },
   };
 }
