@@ -7,14 +7,14 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { regexPassword } from "../Functions/Regex";
-export default function ResetPasswordAccount({ message, id }) {
+export default function ResetPasswordAccount({ id }) {
   //Variables
   const [data, setData] = useState({
     password: "",
     confirmNewPassword: "",
   });
-  const [success, setSuccess] = useState(message);
-  const [error, setError] = useState(message);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const [dataLoaded, setDataLoaded] = useState(true);
   //onChange data
   const handleChange = (e) => {
@@ -92,7 +92,7 @@ ${process.env.URL_BACKEND}/api/auth/resetPassword/${id}`);
     <Fragment>
       {dataLoaded ? (
         <div className="flex justify-content-center login">
-          <Message className="message" severity="error" text={error.error} />
+          <Message className="message" severity="error" text="Aucune donnée" />
         </div>
       ) : (
         <Fragment>
