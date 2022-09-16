@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect, Fragment } from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Message } from "primereact/message";
+import { Divider } from "primereact/divider";
 export default function ConfirmAccount({ data, id }) {
   //Variables
   const [datas, setDatas] = useState(data);
@@ -32,7 +33,10 @@ ${process.env.URL_BACKEND}/api/auth/confirm/${id}`);
         <ProgressSpinner />
       ) : (
         <Fragment>
-          <Message severity="success" text={datas.message} />
+          <Divider />
+          <div className="flex justify-content-center">
+            <Message severity="success" text={datas.message} />
+          </div>
         </Fragment>
       )}
     </Fragment>
