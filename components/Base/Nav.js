@@ -4,13 +4,16 @@ import { loginContext } from "../Context/context";
 import { home, logout, profil, info } from "../Functions/Icons";
 import Link from "next/link";
 import { Button } from "primereact/button";
+import { useRouter } from "next/router";
 
 export default function Nav() {
+  const router = useRouter();
   const { isLogged, setIsLogged } = useContext(loginContext);
   //Logout function that clear localStorage
   const logoutSession = () => {
     localStorage.clear();
     setIsLogged(false);
+    router.push("/");
   };
   //Logo
   const start = (
