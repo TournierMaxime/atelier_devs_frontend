@@ -9,9 +9,11 @@ import { Dialog } from "primereact/dialog";
 import axios from "axios";
 import SignUp from "./SignUp";
 import ResetPassword from "./ResetPassword";
+import { useRouter } from "next/router";
 export default function Login() {
   //Variables
-  const { setIsLogged } = useContext(loginContext);
+  const router = useRouter();
+  const { setIsLogged, userId } = useContext(loginContext);
   const [data, setData] = useState({ email: "", password: "" });
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
@@ -51,6 +53,8 @@ export default function Login() {
         localStorage.setItem("userConnected", JSON.stringify(res));
         setSuccess("Connexion réussie");
         setIsLogged(true);
+        console.log(res.data.userId);
+        router.push(`/${res.data.userId}`);
       })
       .catch((error) => {
         if (error.response.data.error) {
