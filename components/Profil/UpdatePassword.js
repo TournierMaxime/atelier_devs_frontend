@@ -68,7 +68,7 @@ export default function UpdatePassword({ id, datas, setDatas, token }) {
   };
   return (
     <Fragment>
-      <Card className="flex col-4 col-offset-4">
+      <Card className="flex m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
         <form onSubmit={onSubmitPassword} className="p-fluid">
           <h3>Modifier Mot de Passe</h3>
           <Divider />

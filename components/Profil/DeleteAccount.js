@@ -37,7 +37,7 @@ export default function DeleteAccount({ id, setDatas, token, setIsLogged }) {
   };
   return (
     <Fragment>
-      <Card className="flex col-4 col-offset-4">
+      <Card className="flex m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
         <Fragment>
           <h3>Suppression du compte</h3>
           <Divider />
