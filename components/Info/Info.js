@@ -13,6 +13,8 @@ import { Chip } from "primereact/chip";
 import parse from "html-react-parser";
 import moment from "moment/moment";
 import { Paginator } from "primereact/paginator";
+import GetOne from "./GetOne";
+import Link from "next/link";
 export default function Info() {
   const { isLogged, token, isAdmin, userId } = useContext(loginContext);
   const [data, setData] = useState([]);
@@ -99,9 +101,16 @@ export default function Info() {
                   {i.image !== "null" ? (
                     <Image src={i.image} alt={i.image} />
                   ) : null}
+                  <Divider />
                   <Fragment>
                     <div>
-                      {" "}
+                      <Link href={`/info/${i.id}`}>
+                        <Button
+                          className="p-button-sm p-button-outlined p-button-success p-menubar-end-spacing"
+                          label="Commenter"
+                        />
+                      </Link>
+                      &nbsp;
                       <UpdateOne
                         postId={i.id}
                         author={i.userId}
