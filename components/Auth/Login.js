@@ -10,6 +10,7 @@ import axios from "axios";
 import SignUp from "./SignUp";
 import ResetPassword from "./ResetPassword";
 import { useRouter } from "next/router";
+import { Card } from "primereact/card";
 export default function Login() {
   //Variables
   const router = useRouter();
@@ -66,8 +67,8 @@ export default function Login() {
   };
   return (
     <Fragment>
-      <div className="flex justify-content-center login">
-        <div className="card">
+      <div className="flex justify-content-center login m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
+        <Card className="card">
           <h5 className="text-center">Connexion</h5>
           <form onSubmit={onSubmit} className="p-fluid">
             <div className="field">
@@ -109,7 +110,7 @@ export default function Login() {
             {error ? <Message severity="error" text={error} /> : null}
             {success ? <Message severity="success" text={success} /> : null}
           </form>
-        </div>
+        </Card>
       </div>
       {signUpDialog ? (
         <Dialog
