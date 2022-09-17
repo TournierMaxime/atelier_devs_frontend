@@ -1,5 +1,13 @@
-import React from "react";
+import GetOne from "../../components/Info/GetOne";
+export default function Id({ data, id }) {
+  return <GetOne data={data} id={id} />;
+}
 
-export default function Id() {
-  return <div>[id]</div>;
+export async function getServerSideProps(context) {
+  const id = context.params.id;
+  const res = await fetch(`${process.env.URL_BACKEND}/api/posts/${id}}`);
+  const data = await res.json();
+  return {
+    props: { data, id },
+  };
 }
