@@ -83,7 +83,7 @@ export default function Create({ isLogged, token, setData }) {
         <Fragment>
           <Divider />
 
-          <Card className="card flex justify-content-center">
+          <Card className="card w-auto flex justify-content-center m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
             <form onSubmit={onSubmit} className="p-fluid">
               <div className="field">
                 <label>Titre</label>
