@@ -5,6 +5,7 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Message } from "primereact/message";
 import { Divider } from "primereact/divider";
+import { Card } from "primereact/card";
 import { regexNames, regexEmail, regexPassword } from "../Functions/Regex";
 import axios from "axios";
 export default function SignUp() {
@@ -70,8 +71,8 @@ export default function SignUp() {
     </Fragment>
   );
   return (
-    <div className="flex justify-content-center login">
-      <div className="card">
+    <div className="flex justify-content-center login m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
+      <Card className="card">
         <h5 className="text-center">Inscription</h5>
         <form onSubmit={onSubmit} className="p-fluid">
           <div className="field">
@@ -189,7 +190,7 @@ export default function SignUp() {
           {error ? <Message severity="error" text={error} /> : null}
           {success ? <Message severity="success" text={success} /> : null}
         </form>
-      </div>
+      </Card>
     </div>
   );
 }
