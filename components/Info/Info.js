@@ -12,11 +12,20 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { Chip } from "primereact/chip";
 import parse from "html-react-parser";
 import moment from "moment/moment";
+import { Paginator } from "primereact/paginator";
 export default function Info() {
   const { isLogged, token, isAdmin, userId } = useContext(loginContext);
   const [data, setData] = useState([]);
   const [dataloaded, setDataLoaded] = useState(true);
   const [createDialog, setCreateDialog] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [basicFirst, setBasicFirst] = useState(1);
+  const [basicRows, setBasicRows] = useState(5);
+  const onBasicPageChange = (event) => {
+    setBasicFirst(event.first);
+    setBasicRows(event.rows);
+    setCurrentPage(event.page + 1);
+  };
   const toggleCreate = () => {
     setCreateDialog(!createDialog);
   };
@@ -25,12 +34,15 @@ export default function Info() {
     //Retrieve data post
     async function getData() {
       try {
-        const request = await fetch(`${process.env.URL_BACKEND}/api/posts`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const request = await fetch(
+          `${process.env.URL_BACKEND}/api/posts?page=${currentPage}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const response = request;
         const res = await response.json();
         if (res) {
@@ -44,7 +56,8 @@ export default function Info() {
       }
     }
     getData();
-  }, []);
+  }, [currentPage]);
+
   return (
     <Fragment>
       {dataloaded ? (
@@ -55,28 +68,40 @@ export default function Info() {
             <div className="grid flex justify-content-center">
               <Divider />
               {isLogged ? (
-                <div className="col-1">
+                <div className="col-6 offset-col-3">
                   <Button onClick={toggleCreate}>Poster du contenu</Button>
                 </div>
               ) : null}
               <Divider />
-
-              {data?.posts?.map((i, index) => (
-                <Fragment key={index}>
-                  <Card className="col-8" title={i.title}>
-                    <Chip
-                      label={`${
-                        i.User?.firstname +
-                        " - " +
-                        moment(i.created).format("DD/MM/YYYY à HH:MM:SS")
-                      }`}
-                      image={i.User?.image}
-                    />
-                    {parse(`${i.message}`)}
-                    {i.image !== "null" ? (
-                      <Image src={i.image} alt={i.image} />
-                    ) : null}
-                    <Fragment>
+              <Paginator
+                first={basicFirst}
+                rows={basicRows}
+                totalRecords={data?.posts?.count}
+                onPageChange={onBasicPageChange}
+                pageLinkSize={3}
+              />
+              <Divider />
+              {data?.posts?.rows?.map((i, index) => (
+                <Card
+                  className="col-8 offset-col-2"
+                  key={index}
+                  title={i.title}
+                >
+                  <Chip
+                    label={`${
+                      i.User?.firstname +
+                      " - " +
+                      moment(i.created).format("DD/MM/YYYY à HH:MM:SS")
+                    }`}
+                    image={i.User?.image}
+                  />
+                  {parse(`${i.message}`)}
+                  {i.image !== "null" ? (
+                    <Image src={i.image} alt={i.image} />
+                  ) : null}
+                  <Fragment>
+                    <div>
+                      {" "}
                       <UpdateOne
                         postId={i.id}
                         author={i.userId}
@@ -91,11 +116,12 @@ export default function Info() {
                         postId={i.id}
                         author={i.userId}
                       />
-                    </Fragment>
-                  </Card>
-                  <Divider />
-                </Fragment>
+                    </div>
+                  </Fragment>
+                </Card>
               ))}
+
+              <Divider />
             </div>
           </div>
           {createDialog ? (

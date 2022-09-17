@@ -19,12 +19,15 @@ export default function Create({ isLogged, token, setData }) {
   //Retrieve data post
   async function getData() {
     try {
-      const request = await fetch(`${process.env.URL_BACKEND}/api/posts`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const request = await fetch(
+        `${process.env.URL_BACKEND}/api/posts?page=1`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = request;
       const res = await response.json();
       if (res) {

@@ -18,7 +18,7 @@ export default function DeleteOne({ setData, postId, author }) {
     } catch (error) {
       console.log(error);
     }
-    const request = await fetch(`${process.env.URL_BACKEND}/api/posts`, {
+    const request = await fetch(`${process.env.URL_BACKEND}/api/posts?page=1`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

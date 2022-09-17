@@ -33,12 +33,15 @@ export default function UpdateOne({
   //Retrieve data post
   async function getData() {
     try {
-      const request = await fetch(`${process.env.URL_BACKEND}/api/posts`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const request = await fetch(
+        `${process.env.URL_BACKEND}/api/posts?page=1`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = request;
       const res = await response.json();
       if (res) {
@@ -99,9 +102,9 @@ export default function UpdateOne({
             label="Modifier"
             onClick={toggleUpdate}
           />
-          <Divider />
+          &nbsp;
           <Dialog
-            className="dialog"
+            className="dialog flex justify-content-center"
             header="Modification d'un topic"
             modal
             closeOnEscape
