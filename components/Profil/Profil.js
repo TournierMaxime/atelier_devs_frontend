@@ -1,5 +1,5 @@
 import { useEffect, useState, Fragment, useContext } from "react";
-import { Message } from "primereact/message";
+import { ProgressSpinner } from "primereact/progressspinner";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Chip } from "primereact/chip";
@@ -37,15 +37,15 @@ export default function Profil({ id }) {
   }, []); //eslint-disable-line
   return (
     <Fragment>
-      {dataLoaded || datas.message ? (
+      {dataLoaded ? (
         <div className="flex justify-content-center login">
-          <Message className="message" severity="error" text={datas.message} />
+          <ProgressSpinner />
         </div>
       ) : (
         <Fragment>
           <Divider />
           <div className="grid">
-            <Card className="flex justify-content-center m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
+            <Card className="boxShadow flex justify-content-center m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
               <Chip
                 label={`${datas.user?.firstname} ${datas.user?.lastname}`}
                 image={datas.user?.image}
