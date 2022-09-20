@@ -1,18 +1,50 @@
 import { Button } from "primereact/button";
-import { Card } from "primereact/card";
 import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
 import { Message } from "primereact/message";
 import axios from "axios";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useContext } from "react";
 import { useRouter } from "next/router";
-export default function DeleteAccount({ id, setDatas, token, setIsLogged }) {
+import { loginContext } from "../Context/context";
+export default function DeleteAccount({
+  id,
+  setDatas,
+  setData,
+  token,
+  setIsLogged,
+}) {
   //Variables
+  const { isAdmin } = useContext(loginContext);
   const router = useRouter();
   const [deleteAccount, setDeleteAccount] = useState(false);
   const deleteAction = () => {
     setDeleteAccount(!deleteAccount);
   };
+
+  async function getData() {
+    try {
+      const request = await fetch(
+        `${process.env.URL_BACKEND}/api/users?page=1`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ` + token,
+          },
+        }
+      );
+      const response = request;
+      const res = await response.json();
+      if (res) {
+        setData(res.users);
+        setDataLoaded(true);
+      } else {
+        setDataLoaded(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   //Delete form
   const handleDelete = (e) => {
@@ -27,9 +59,21 @@ export default function DeleteAccount({ id, setDatas, token, setIsLogged }) {
     })
       .then((data) => {
         setDatas(data);
-        localStorage.clear();
-        setIsLogged(false);
-        router.push("/");
+        if (isAdmin === true) {
+          if (router.route === "/admin") {
+            router.push("/admin");
+          } else {
+            router.push("/");
+            return alert("Compte supprimé avec succès");
+          }
+          getData();
+        } else {
+          setIsLogged(false);
+          getData();
+          localStorage.clear();
+          router.push("/");
+          return alert("Compte supprimé avec succès");
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -37,13 +81,11 @@ export default function DeleteAccount({ id, setDatas, token, setIsLogged }) {
   };
   return (
     <Fragment>
-      <Card className="flex m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
+      <div className="flex m-auto w-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
         <Fragment>
-          <h3>Suppression du compte</h3>
-          <Divider />
           <Button
             className="p-button-sm p-button-outlined p-button-danger p-menubar-end-spacing"
-            label="Supprimer"
+            label="Supprimer compte"
             onClick={deleteAction}
           />
           <Dialog
@@ -81,7 +123,7 @@ export default function DeleteAccount({ id, setDatas, token, setIsLogged }) {
             </form>
           </Dialog>
         </Fragment>
-      </Card>
+      </div>
     </Fragment>
   );
 }
