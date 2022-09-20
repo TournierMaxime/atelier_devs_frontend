@@ -5,28 +5,33 @@ import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
 import { Message } from "primereact/message";
 import { Fragment, useState, useContext } from "react";
-export default function DeleteOne({ setData, postId, author }) {
-  const { isLogged, token, userId } = useContext(loginContext);
+import { useRouter } from "next/router";
+export default function DeleteOne({ setData, setDatas, postId, author }) {
+  const router = useRouter();
+  const { isLogged, token, userId, isAdmin } = useContext(loginContext);
   const [deletePost, setDeletePost] = useState(false);
   const [error, setError] = useState("");
   const deleteAction = () => {
     setDeletePost(!deletePost);
   };
-
   async function getData() {
     try {
+      const request = await fetch(
+        `${process.env.URL_BACKEND}/api/posts?page=1`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const response = request;
+      const data = await response.json();
+      setData(data);
+      setDatas(data.posts);
     } catch (error) {
       console.log(error);
     }
-    const request = await fetch(`${process.env.URL_BACKEND}/api/posts?page=1`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const response = request;
-    const data = await response.json();
-    setData(data);
   }
 
   const handleDelete = (e) => {
@@ -41,16 +46,24 @@ export default function DeleteOne({ setData, postId, author }) {
       .then((data) => {
         setData(data);
         getData();
+        if (isAdmin === true) {
+          if (router.route === "/admin") {
+            router.push("/admin");
+          } else {
+            router.push("/info");
+          }
+        } else {
+          router.push("/info");
+          return alert("Post supprimé avec succès");
+        }
       })
       .catch((error) => {
-        if (error.response.data.error) {
-          setError(error.response.data.error);
-        }
+        console.log(error);
       });
   };
   return (
     <Fragment>
-      {isLogged && userId === author ? (
+      {(isLogged && userId === author) || isAdmin === true ? (
         <Fragment>
           <Button
             className="p-button-sm p-button-outlined p-button-danger p-menubar-end-spacing"
