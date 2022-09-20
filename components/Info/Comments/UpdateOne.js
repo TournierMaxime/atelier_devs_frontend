@@ -53,7 +53,7 @@ export default function UpdateOne({
     }
 
     axios({
-      method: "PUT",
+      method: "put",
       url: `${process.env.URL_BACKEND}/api/posts/${postId}/comment/${commentId}`,
       data: formData,
       headers: {
