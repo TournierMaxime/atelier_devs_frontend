@@ -81,7 +81,7 @@ export default function UpdateData({ id, datas, setDatas, token }) {
   };
   return (
     <Fragment>
-      <Card className="flex m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
+      <Card className="boxShadow flex justify-content-center p-0 m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
         <form onSubmit={onSubmitUser} className="p-fluid">
           <h3>Modifier Profil</h3>
           <Divider />
