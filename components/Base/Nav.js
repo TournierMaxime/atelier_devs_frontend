@@ -7,12 +7,15 @@ import { Button } from "primereact/button";
 import { useRouter } from "next/router";
 export default function Nav() {
   const router = useRouter();
-  const { isLogged, setIsLogged } = useContext(loginContext);
+  const { isLogged, setIsLogged, isAdmin } = useContext(loginContext);
 
   const logoutSession = () => {
     localStorage.clear();
     setIsLogged(false);
     router.push("/");
+  };
+  const adminPanel = () => {
+    router.push("/admin");
   };
   const start = (
     <Link href="/">
@@ -24,9 +27,19 @@ export default function Nav() {
     <div className="end">
       {isLogged ? (
         <Fragment>
+          {isAdmin ? (
+            <>
+              <Button
+                label="Admin"
+                className="p-button-sm p-button-outlined p-button-info p-menubar-end-spacing"
+                onClick={adminPanel}
+              />
+            </>
+          ) : null}
+          &nbsp;
           <Button
             label="Logout"
-            className="p-button-sm p-button-outlined p-button-info p-menubar-end-spacing"
+            className="p-button-sm p-button-outlined p-button-danger p-menubar-end-spacing"
             onClick={logoutSession}
           />
         </Fragment>
@@ -43,7 +56,7 @@ export default function Nav() {
   ];
   return (
     <Fragment>
-      <Menubar model={items} start={start} end={end} />
+      <Menubar className="flex" model={items} start={start} end={end} />
     </Fragment>
   );
 }
