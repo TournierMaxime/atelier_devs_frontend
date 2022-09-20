@@ -72,7 +72,7 @@ export default function SignUp() {
   );
   return (
     <div className="flex justify-content-center login m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
-      <Card className="card">
+      <Card className="card flex justify-content-center w-12">
         <h5 className="text-center">Inscription</h5>
         <form onSubmit={onSubmit} className="p-fluid">
           <div className="field">
@@ -185,7 +185,7 @@ export default function SignUp() {
             </span>
           </div>
 
-          <Button type="submit" label="Submit" className="mt-2" />
+          <Button type="submit" label="S'inscrire" className="mt-2" />
           <Divider />
           {error ? <Message severity="error" text={error} /> : null}
           {success ? <Message severity="success" text={success} /> : null}
