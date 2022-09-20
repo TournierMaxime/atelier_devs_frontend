@@ -2,10 +2,10 @@
 import { useState, Fragment } from "react";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-import { Password } from "primereact/password";
 import { Message } from "primereact/message";
 import { Divider } from "primereact/divider";
 import { regexEmail } from "../Functions/Regex";
+import { Card } from "primereact/card";
 import axios from "axios";
 export default function ResetPassword() {
   //Variables
@@ -52,8 +52,8 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="flex justify-content-center login">
-      <div className="card">
+    <div className="flex justify-content-center login m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
+      <Card className="card flex justify-content-center w-12">
         <h5 className="text-center">Récupération de mot de passe</h5>
         <form onSubmit={onSubmit} className="p-fluid">
           <div className="field">
@@ -84,12 +84,12 @@ export default function ResetPassword() {
             </span>
           </div>
 
-          <Button type="submit" label="Submit" className="mt-2" />
+          <Button type="submit" label="Rénitialiser" className="mt-2" />
           <Divider />
           {error ? <Message severity="error" text={error} /> : null}
           {success ? <Message severity="success" text={success} /> : null}
         </form>
-      </div>
+      </Card>
     </div>
   );
 }
