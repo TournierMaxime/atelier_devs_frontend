@@ -6,7 +6,8 @@
     "dev": "next dev -p 3101",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "local": "next dev -H 192.168.1.18 -p 3101"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.2.0",
