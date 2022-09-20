@@ -9,6 +9,7 @@ import { Editor } from "primereact/editor";
 import { Dialog } from "primereact/dialog";
 import { headerTemplate } from "../Functions/Toolbar";
 import { loginContext } from "../Context/context";
+import { useRouter } from "next/router";
 export default function UpdateOne({
   postId,
   token,
@@ -24,6 +25,7 @@ export default function UpdateOne({
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const { isLogged, userId } = useContext(loginContext);
+  const router = useRouter();
 
   const [updateDialog, setUpdateDialog] = useState(false);
   const toggleUpdate = () => {
@@ -62,12 +64,6 @@ export default function UpdateOne({
       formData.append("image", imagePost);
     }
 
-    if (titlePost === "" || messagePost === "") {
-      return setError(
-        "Le titre et le contenu du topic n'ont pas été renseignés"
-      );
-    }
-
     fetch(`${process.env.URL_BACKEND}/api/posts/${postId}`, {
       method: "PUT",
       body: formData,
@@ -84,6 +80,7 @@ export default function UpdateOne({
         }
         setData(formData);
         getData();
+        router.push(`/info/${postId}`);
       })
       .catch((error) => {
         console.log(error);
@@ -105,14 +102,15 @@ export default function UpdateOne({
           &nbsp;
           <Dialog
             className="dialog flex justify-content-center"
-            header="Modification d'un topic"
+            header="Modification d'une info"
             modal
             closeOnEscape
             draggable={false}
             onHide={toggleUpdate}
             visible={updateDialog}
           >
-            <Card className="card flex justify-content-center">
+            <Divider />
+            <Card className="m-auto w-auto flex justify-content-center xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
               <form onSubmit={onSubmit} className="p-fluid">
                 <div className="field">
                   <label>Titre</label>
@@ -133,7 +131,7 @@ export default function UpdateOne({
                     placeholder="Contenu du message*"
                     onTextChange={(e) => setMessagePost(e.htmlValue)}
                     headerTemplate={headerTemplate}
-                    style={{ height: "320px" }}
+                    style={{ height: "200px" }}
                   />
                   <Divider />
                   <Divider />
