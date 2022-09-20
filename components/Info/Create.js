@@ -49,10 +49,6 @@ export default function Create({ isLogged, token, setData }) {
     formData.append("message", message);
     formData.append("image", image);
 
-    if (title === "" || message === "") {
-      return setError("Votre modification est vide");
-    }
-
     fetch(`${process.env.URL_BACKEND}/api/posts/new`, {
       method: "POST",
       body: formData,
