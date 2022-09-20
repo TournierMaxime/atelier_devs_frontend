@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Footer() {
   return (
     <div className="surface-section px-4 py-6 md:px-6 lg:px-8 text-center">
