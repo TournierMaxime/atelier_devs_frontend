@@ -1,3 +1,4 @@
+//Imports
 import Create from "./Create";
 import UpdateOne from "./UpdateOne";
 import DeleteOne from "./DeleteOne";
@@ -14,10 +15,11 @@ import parse from "html-react-parser";
 import moment from "moment/moment";
 import { Paginator } from "primereact/paginator";
 import { Message } from "primereact/message";
-import GetOne from "./GetOne";
 import Link from "next/link";
+
 export default function Info() {
-  const { isLogged, token, isAdmin, userId } = useContext(loginContext);
+  //Variables
+  const { isLogged, token } = useContext(loginContext);
   const [data, setData] = useState([]);
   const [dataloaded, setDataLoaded] = useState(true);
   const [createDialog, setCreateDialog] = useState(false);
@@ -29,10 +31,13 @@ export default function Info() {
     setBasicRows(event.rows);
     setCurrentPage(event.page + 1);
   };
+
+  //Call to action
   const toggleCreate = () => {
     setCreateDialog(!createDialog);
   };
 
+  //Update the state
   useEffect(() => {
     //Retrieve data post
     async function getData() {
@@ -68,16 +73,18 @@ export default function Info() {
       ) : (
         <Fragment>
           <Divider />
+
           {isLogged ? (
             <div className="col-6 offset-col-3 m-auto flex justify-content-center">
               <Button onClick={toggleCreate}>Poster du contenu</Button>
             </div>
           ) : null}
+
           <Divider />
+
           <Fragment>
             {data?.posts?.rows?.length > 0 ? (
               <Fragment>
-                {" "}
                 <Paginator
                   first={basicFirst}
                   rows={basicRows}
@@ -85,7 +92,9 @@ export default function Info() {
                   onPageChange={onBasicPageChange}
                   pageLinkSize={3}
                 />
+
                 <Divider />
+
                 {data?.posts?.rows?.map((i, index) => (
                   <Fragment key={index}>
                     <Card
@@ -104,11 +113,15 @@ export default function Info() {
                           />
                         </a>
                       </Link>
+
                       {parse(`${i.message}`)}
+
                       {i.image !== "null" ? (
                         <Image src={i.image} alt={i.image} />
                       ) : null}
+
                       <Divider />
+
                       <Fragment>
                         <div>
                           {i.Comments?.length > 0 ? (

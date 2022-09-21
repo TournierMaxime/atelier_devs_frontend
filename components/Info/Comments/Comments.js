@@ -1,3 +1,4 @@
+//Imports
 import { useEffect, useState, Fragment, useContext } from "react";
 import moment from "moment";
 import Create from "./Create";
@@ -12,6 +13,7 @@ import { Card } from "primereact/card";
 import { Paginator } from "primereact/paginator";
 import { loginContext } from "../../Context/context";
 import Link from "next/link";
+
 export default function Comments({ postId, author }) {
   //Variables
   const { isLogged, userId, token } = useContext(loginContext);
@@ -25,6 +27,7 @@ export default function Comments({ postId, author }) {
     setBasicRows(event.rows);
     setCurrentPage(event.page + 1);
   };
+
   //Update the state for the comments
   useEffect(() => {
     fetch(
@@ -43,18 +46,21 @@ export default function Comments({ postId, author }) {
       })
       .catch((error) => console.log(error));
   }, [postId, currentPage]);
+
   return (
     <Fragment>
       <Divider />
       {dataloaded ? (
         <Fragment>
           {isLogged ? (
-            <>
+            <Fragment>
               <Create setData={setData} postId={postId} />
               &nbsp;
-            </>
+            </Fragment>
           ) : null}
+
           <Divider />
+
           {data?.comments?.rows?.length > 0 ? (
             <Fragment>
               <div className="flex justify-content-center m-auto">
@@ -66,7 +72,9 @@ export default function Comments({ postId, author }) {
                   pageLinkSize={3}
                 />
               </div>
+
               <Divider />
+
               {data?.comments?.rows?.map((i, index) => {
                 return (
                   <Fragment key={index}>
@@ -81,12 +89,15 @@ export default function Comments({ postId, author }) {
                           />
                         </a>
                       </Link>
+
                       <Divider />
+
                       {parse(`${i.message}`)}
 
                       <Divider />
+
                       {isLogged && userId === i.userId ? (
-                        <>
+                        <Fragment>
                           <DeleteOne
                             setData={setData}
                             commentId={i.id}
@@ -100,7 +111,7 @@ export default function Comments({ postId, author }) {
                             author={i.userId}
                             comment={i.message}
                           />
-                        </>
+                        </Fragment>
                       ) : null}
                     </Card>
                     <Divider />

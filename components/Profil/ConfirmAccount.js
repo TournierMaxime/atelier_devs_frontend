@@ -1,12 +1,15 @@
+//Imports
 import axios from "axios";
 import { useState, useEffect, Fragment } from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Message } from "primereact/message";
 import { Divider } from "primereact/divider";
+
 export default function ConfirmAccount({ data, id }) {
   //Variables
   const [datas, setDatas] = useState(data);
   const [dataLoaded, setDataLoaded] = useState(true);
+
   //Retrieve data for a single movie
   async function getDatas() {
     try {
@@ -24,9 +27,11 @@ ${process.env.URL_BACKEND}/api/auth/confirm/${id}`);
     }
   }
 
+  //Update the state
   useEffect(() => {
     getDatas();
   }, []); //eslint-disable-line
+
   return (
     <Fragment>
       {dataLoaded ? (

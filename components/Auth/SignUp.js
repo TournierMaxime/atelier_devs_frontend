@@ -8,6 +8,7 @@ import { Divider } from "primereact/divider";
 import { Card } from "primereact/card";
 import { regexNames, regexEmail, regexPassword } from "../Functions/Regex";
 import axios from "axios";
+
 export default function SignUp() {
   //Variables
   const [data, setData] = useState({
@@ -18,6 +19,7 @@ export default function SignUp() {
   });
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+
   //onChange data
   const handleChange = (e) => {
     const value = e.target.value;
@@ -26,6 +28,7 @@ export default function SignUp() {
       [e.target.name]: value,
     });
   };
+
   //SignUp form
   const onSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +46,6 @@ export default function SignUp() {
         "Content-Type": "application/json",
       },
     })
-      //.then((response) => response.json())
       .then((res) => {
         if (res.data.message) {
           setSuccess(res.data.message);
@@ -57,6 +59,7 @@ export default function SignUp() {
     setError("");
     setSuccess("");
   };
+  //Message for the password prerequires
   const footer = (
     <Fragment>
       <Divider />
@@ -70,10 +73,12 @@ export default function SignUp() {
       </ul>
     </Fragment>
   );
+
   return (
     <div className="flex justify-content-center login m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
       <Card className="card flex justify-content-center w-12">
         <h5 className="text-center">Inscription</h5>
+
         <form onSubmit={onSubmit} className="p-fluid">
           <div className="field">
             <span className="p-float-label p-input-icon-right">
@@ -91,17 +96,15 @@ export default function SignUp() {
                   className="p-error"
                   style={{ display: data.lastname ? null : "none" }}
                 >
-                  <Message
-                    className="message"
-                    severity="error"
-                    text="Merci de vérifier votre nom, 3 caractères minimum requis avec des lettres uniquement"
-                  />
+                  Merci de vérifier votre nom, 3 caractères minimum requis avec
+                  des lettres uniquement
                 </small>
               ) : (
                 <small className="p-success">Nom valide</small>
               )}
             </span>
           </div>
+
           <div className="field">
             <span className="p-float-label p-input-icon-right">
               <i className="pi pi-user" />
@@ -118,17 +121,15 @@ export default function SignUp() {
                   className="p-error"
                   style={{ display: data.firstname ? null : "none" }}
                 >
-                  <Message
-                    className="message"
-                    severity="error"
-                    text="Merci de vérifier votre prénom, 3 caractères minimum requis avec des lettres uniquement"
-                  />
+                  Merci de vérifier votre prénom, 3 caractères minimum requis
+                  avec des lettres uniquement
                 </small>
               ) : (
                 <small className="p-success">Prénom valide</small>
               )}
             </span>
           </div>
+
           <div className="field">
             <span className="p-float-label p-input-icon-right">
               <i className="pi pi-envelope" />
@@ -145,17 +146,14 @@ export default function SignUp() {
                   className="p-error"
                   style={{ display: data.email ? null : "none" }}
                 >
-                  <Message
-                    className="message"
-                    severity="error"
-                    text="Merci de vérifier votre email, format invalide"
-                  />
+                  Merci de vérifier votre email, format invalide
                 </small>
               ) : (
                 <small className="p-success">Email valide</small>
               )}
             </span>
           </div>
+
           <div className="field">
             <span className="p-float-label">
               <Password
@@ -173,11 +171,9 @@ export default function SignUp() {
                   className="p-error"
                   style={{ display: data.password ? null : "none" }}
                 >
-                  <Message
-                    className="message"
-                    severity="error"
-                    text="Le mot de passe doit contenir au moins : 8 caractères minimum, une majuscule, une minuscule, un chiffre, et un caractère spécial"
-                  />
+                  Le mot de passe doit contenir au moins : 8 caractères minimum,
+                  une majuscule, une minuscule, un chiffre, et un caractère
+                  spécial
                 </small>
               ) : (
                 <small className="p-success">Password valide</small>
@@ -186,7 +182,9 @@ export default function SignUp() {
           </div>
 
           <Button type="submit" label="S'inscrire" className="mt-2" />
+
           <Divider />
+
           {error ? <Message severity="error" text={error} /> : null}
           {success ? <Message severity="success" text={success} /> : null}
         </form>

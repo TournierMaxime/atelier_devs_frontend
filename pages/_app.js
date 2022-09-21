@@ -1,3 +1,4 @@
+//Imports
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primeflex/primeflex.css";
@@ -7,6 +8,7 @@ import { loginContext } from "../components/Context/context";
 import { useState, useEffect } from "react";
 import Nav from "../components/Base/Nav";
 import Footer from "../components/Base/Footer";
+
 function MyApp({ Component, pageProps }) {
   //Variables
   const [isLogged, setIsLogged] = useState(null);
@@ -58,6 +60,7 @@ function MyApp({ Component, pageProps }) {
     userId,
     image,
   ]);
+
   return (
     <loginContext.Provider
       value={{

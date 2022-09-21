@@ -1,3 +1,4 @@
+//Imports
 import { Fragment, useContext } from "react";
 import { Menubar } from "primereact/menubar";
 import { loginContext } from "../Context/context";
@@ -5,24 +6,30 @@ import { home, logout, profil, info } from "../Functions/Icons";
 import Link from "next/link";
 import { Button } from "primereact/button";
 import { useRouter } from "next/router";
+
 export default function Nav() {
+  //Variables
   const router = useRouter();
   const { isLogged, setIsLogged, isAdmin } = useContext(loginContext);
 
+  //Fonctions
   const logoutSession = () => {
     localStorage.clear();
     setIsLogged(false);
     router.push("/");
   };
+
   const adminPanel = () => {
     router.push("/admin");
   };
+
+  //Buttons navigations
   const start = (
     <Link href="/">
       <a>{home}</a>
     </Link>
   );
-  //Buttons navigations
+
   const end = (
     <div className="end">
       {isLogged ? (
@@ -46,6 +53,7 @@ export default function Nav() {
       ) : null}
     </div>
   );
+
   //Items for navbar
   const items = [
     {

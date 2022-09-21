@@ -1,3 +1,4 @@
+//Imports
 import DeleteOne from "../Info/Comments/DeleteOne";
 import { useEffect, useState, Fragment, useContext } from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
@@ -5,6 +6,7 @@ import moment from "moment";
 import { Paginator } from "primereact/paginator";
 import parse from "html-react-parser";
 import { loginContext } from "../../components/Context/context";
+
 export default function Comments() {
   //Variables
   const { token } = useContext(loginContext);
@@ -48,6 +50,8 @@ export default function Comments() {
     }
     getData();
   }, [currentPage, token]);
+
+  //Data in tbody
   const tbody = data?.rows?.map((i, index) => {
     return (
       <tbody key={index} className="p-datatable-tbody">
@@ -82,6 +86,7 @@ export default function Comments() {
             onPageChange={onBasicPageChange}
             pageLinkSize={3}
           />
+
           <div className="p-datatable p-component p-datatable-responsive-scroll">
             <div className="p-datatable-wrapper">
               <table

@@ -1,3 +1,4 @@
+//Imports
 import { Fragment, useState } from "react";
 import { Card } from "primereact/card";
 import { Message } from "primereact/message";
@@ -7,6 +8,7 @@ import { Divider } from "primereact/divider";
 import { Button } from "primereact/button";
 import { Avatar } from "primereact/avatar";
 import { regexNames } from "../Functions/Regex";
+
 export default function UpdateData({ id, datas, setDatas, token }) {
   //Variables
   const [firstname, setFirstname] = useState("");
@@ -41,18 +43,23 @@ export default function UpdateData({ id, datas, setDatas, token }) {
     e.preventDefault();
     const formData = new FormData();
     //Verifications des champs
+
     if (firstname !== "") {
       formData.append("firstname", firstname);
     }
+
     if (lastname !== "") {
       formData.append("lastname", lastname);
     }
+
     if (image !== "") {
       formData.append("image", image);
     }
+
     if (image === "" && firstname === "" && lastname === "") {
       return setError("Veuillez renseigner au moins un champs");
     }
+
     fetch(`${process.env.URL_BACKEND}/api/users/${id}`, {
       method: "PUT",
       body: formData,
@@ -79,12 +86,14 @@ export default function UpdateData({ id, datas, setDatas, token }) {
     setError("");
     setSuccess("");
   };
+
   return (
     <Fragment>
       <Card className="boxShadow flex justify-content-center p-0 m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
         <form onSubmit={onSubmitUser} className="p-fluid">
           <h3>Modifier Profil</h3>
           <Divider />
+
           <div className="field">
             <label>Prénom</label>
             <InputText
@@ -106,6 +115,7 @@ export default function UpdateData({ id, datas, setDatas, token }) {
               <small className="p-success">Prénom valide.</small>
             )}
             <Divider />
+
             <label>Nom</label>
             <InputText
               name="lastname"
@@ -126,6 +136,7 @@ export default function UpdateData({ id, datas, setDatas, token }) {
               <small className="p-success">Nom valide.</small>
             )}
             <Divider />
+
             <Fragment>
               <div className="flex align-items-center justify-content-start">
                 <Avatar
@@ -148,9 +159,13 @@ export default function UpdateData({ id, datas, setDatas, token }) {
               </div>
             </Fragment>
           </div>
+
           <Divider />
+
           <Button type="submit" label="Modifier" className="mt-2" />
+
           <Divider />
+
           {error ? <Message severity="error" text={error} /> : null}
           {success ? <Message severity="success" text={success} /> : null}
         </form>

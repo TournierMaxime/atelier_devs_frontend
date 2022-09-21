@@ -1,3 +1,4 @@
+//Imports
 import { useEffect, useState, Fragment, useContext } from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Card } from "primereact/card";
@@ -10,12 +11,14 @@ import DeleteAccount from "./DeleteAccount";
 import axios from "axios";
 import moment from "moment/moment";
 import { loginContext } from "../Context/context";
+
 export default function Profil({ id }) {
   //Variables
   const { isLogged, token, userId, setIsLogged } = useContext(loginContext);
   const [datas, setDatas] = useState({});
   const [dataLoaded, setDataLoaded] = useState(true);
 
+  //Update the state
   useEffect(() => {
     //Retrieve data for a single movie
     async function getDatas() {
@@ -35,6 +38,7 @@ export default function Profil({ id }) {
     }
     getDatas();
   }, []); //eslint-disable-line
+
   return (
     <Fragment>
       {dataLoaded ? (
@@ -50,6 +54,7 @@ export default function Profil({ id }) {
                 label={`${datas.user?.firstname} ${datas.user?.lastname}`}
                 image={datas.user?.image}
               />
+
               <div className="flex align-items-center flex-wrap text-sm">
                 <div className="mr-5 mt-3">
                   <span className="font-medium text-500">POSTS</span>
@@ -57,12 +62,14 @@ export default function Profil({ id }) {
                     {datas.user?.Posts.length}
                   </div>
                 </div>
+
                 <div className="mr-5 mt-3">
                   <span className="font-medium text-500">COMMENTAIRES</span>
                   <div className="text-700 mt-2 text-center">
                     {datas.user?.Comments.length}
                   </div>
                 </div>
+
                 <div className="mr-5 mt-3">
                   <span className="font-medium text-500">INSCRIPTION</span>
                   <div className="text-700 mt-2 text-center">

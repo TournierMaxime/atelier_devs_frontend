@@ -1,3 +1,4 @@
+//Imports
 import { Card } from "primereact/card";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { Divider } from "primereact/divider";
@@ -12,10 +13,13 @@ import Comments from "./Comments/Comments";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Link from "next/link";
+
 export default function GetOne({ data, id }) {
+  //Variables
   const { isLogged, userId, token } = useContext(loginContext);
   const [datas, setData] = useState({});
   const [dataloaded, setDataLoaded] = useState(true);
+
   //Items for breadcrumb
   const items = [
     {
@@ -25,6 +29,7 @@ export default function GetOne({ data, id }) {
   ];
   const home = { icon: "pi pi-home", url: "/info" };
 
+  //Update the state
   useEffect(() => {
     //Retrieve data post
     async function getData() {
@@ -61,6 +66,7 @@ export default function GetOne({ data, id }) {
         model={items}
         home={home}
       />
+
       {dataloaded ? (
         <ProgressSpinner />
       ) : (
@@ -83,9 +89,13 @@ export default function GetOne({ data, id }) {
                   />
                 </a>
               </Link>
+
               {parse(data.message)}
+
               {data.image ? <Image src={data.image} alt={data.image} /> : null}
+
               <Divider />
+
               {isLogged && userId === data.userId ? (
                 <>
                   <UpdateOne

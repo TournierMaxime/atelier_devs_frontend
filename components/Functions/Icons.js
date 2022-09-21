@@ -1,3 +1,4 @@
+//Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
@@ -6,6 +7,8 @@ import {
   faUserShield,
   faNewspaper,
 } from "@fortawesome/free-solid-svg-icons";
+
+//Variables
 export const home = (
   <FontAwesomeIcon icon={faHouse} className="fontAwesomeIcon" />
 );

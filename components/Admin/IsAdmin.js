@@ -1,10 +1,14 @@
+//Imports
 import { Fragment, useState, useContext } from "react";
 import { Button } from "primereact/button";
 import { loginContext } from "../../components/Context/context";
+
 export default function IsAdmin({ adminRights, setData }) {
+  //Variables
   const { token } = useContext(loginContext);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  //Retrieve data users
   async function getData() {
     try {
       const request = await fetch(
@@ -27,6 +31,7 @@ export default function IsAdmin({ adminRights, setData }) {
     }
   }
 
+  //Submit form
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = { isAdmin };
@@ -50,6 +55,7 @@ export default function IsAdmin({ adminRights, setData }) {
       })
       .catch((error) => console.log(error));
   };
+
   return (
     <Fragment>
       {adminRights.isAdmin === false ? (

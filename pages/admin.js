@@ -7,9 +7,12 @@ import Comments from "../components/Admin/Comments";
 import { Divider } from "primereact/divider";
 import { loginContext } from "../components/Context/context";
 import { Message } from "primereact/message";
+
 export default function Admin() {
+  //Variables
   const { isLogged, isAdmin } = useContext(loginContext);
-  //Tabs
+
+  //Tabs array data
   const data = [
     {
       id: "1",
@@ -27,10 +30,13 @@ export default function Admin() {
       tabContent: <Comments />,
     },
   ];
+
   //Return the content of Tabs
   const Tab = () => {
+    //Variables
     const [visibleTab, setVisibleTab] = useState(data[0].id);
 
+    //Titles tabs category
     const listTitles = data.map((item, index) =>
       visibleTab === item.id ? (
         <TabView key={index} onTabChange={() => setVisibleTab(item.id)}>
@@ -47,6 +53,7 @@ export default function Admin() {
       )
     );
 
+    //Contents tabs category
     const listContent = data.map((item, index) => (
       <div
         key={index}

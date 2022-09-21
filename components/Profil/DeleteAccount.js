@@ -1,3 +1,4 @@
+//Imports
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
@@ -6,6 +7,7 @@ import axios from "axios";
 import { Fragment, useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { loginContext } from "../Context/context";
+
 export default function DeleteAccount({
   id,
   setDatas,
@@ -17,10 +19,13 @@ export default function DeleteAccount({
   const { isAdmin } = useContext(loginContext);
   const router = useRouter();
   const [deleteAccount, setDeleteAccount] = useState(false);
+
+  //Call to action
   const deleteAction = () => {
     setDeleteAccount(!deleteAccount);
   };
 
+  //Retrieve data users
   async function getData() {
     try {
       const request = await fetch(
@@ -79,6 +84,7 @@ export default function DeleteAccount({
         console.log(error);
       });
   };
+
   return (
     <Fragment>
       <div className="flex m-auto w-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
@@ -102,6 +108,7 @@ export default function DeleteAccount({
               severity="warn"
               text="La suppression de votre compte entrainera la perte définitive de tous contenus liés à celui-ci"
             />
+
             <form className="p-fluid">
               <div className="field">
                 <span className="p-buttonset">

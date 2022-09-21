@@ -1,8 +1,10 @@
+//Imports
 import DeleteOne from "../Info/DeleteOne";
 import { useEffect, useState, Fragment } from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
 import moment from "moment";
 import { Paginator } from "primereact/paginator";
+
 export default function Posts() {
   //Variables
   const [data, setData] = useState([]);
@@ -44,6 +46,8 @@ export default function Posts() {
     }
     getData();
   }, [currentPage]); //eslint-disable-line
+
+  //Data in tbody
   const tbody = data?.rows?.map((i, index) => {
     return (
       <tbody key={index} className="p-datatable-tbody">
@@ -60,6 +64,7 @@ export default function Posts() {
       </tbody>
     );
   });
+
   return (
     <Fragment>
       {dataloaded ? (
@@ -71,6 +76,7 @@ export default function Posts() {
             onPageChange={onBasicPageChange}
             pageLinkSize={3}
           />
+
           <div className="p-datatable p-component p-datatable-responsive-scroll">
             <div className="p-datatable-wrapper">
               <table

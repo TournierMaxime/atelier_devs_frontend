@@ -7,6 +7,7 @@ import { Divider } from "primereact/divider";
 import { regexEmail } from "../Functions/Regex";
 import { Card } from "primereact/card";
 import axios from "axios";
+
 export default function ResetPassword() {
   //Variables
   const [data, setData] = useState({
@@ -22,7 +23,7 @@ export default function ResetPassword() {
       [e.target.name]: value,
     });
   };
-  //SignUp form
+  //Submit form
   const onSubmit = (e) => {
     e.preventDefault();
     const userData = {
@@ -36,7 +37,6 @@ export default function ResetPassword() {
         "Content-Type": "application/json",
       },
     })
-      //.then((response) => response.json())
       .then((res) => {
         if (res.data.message) {
           setSuccess(res.data.message);
@@ -55,6 +55,7 @@ export default function ResetPassword() {
     <div className="flex justify-content-center login m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
       <Card className="card flex justify-content-center w-12">
         <h5 className="text-center">Récupération de mot de passe</h5>
+
         <form onSubmit={onSubmit} className="p-fluid">
           <div className="field">
             <span className="p-float-label p-input-icon-right">
@@ -67,16 +68,13 @@ export default function ResetPassword() {
                 placeholder="Email*"
               />
               <label>Email</label>
+
               {regexEmail.test(data.email) === false ? (
                 <small
                   className="p-error"
                   style={{ display: data.email ? null : "none" }}
                 >
-                  <Message
-                    className="message"
-                    severity="error"
-                    text="Merci de vérifier votre email, format invalide"
-                  />
+                  Merci de vérifier votre email, format invalide
                 </small>
               ) : (
                 <small className="p-success">Email valide</small>
@@ -85,7 +83,9 @@ export default function ResetPassword() {
           </div>
 
           <Button type="submit" label="Rénitialiser" className="mt-2" />
+
           <Divider />
+
           {error ? <Message severity="error" text={error} /> : null}
           {success ? <Message severity="success" text={success} /> : null}
         </form>

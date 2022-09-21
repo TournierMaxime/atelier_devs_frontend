@@ -1,3 +1,4 @@
+//Imports
 import { loginContext } from "../Context/context";
 import axios from "axios";
 import { Button } from "primereact/button";
@@ -6,14 +7,20 @@ import { Divider } from "primereact/divider";
 import { Message } from "primereact/message";
 import { Fragment, useState, useContext } from "react";
 import { useRouter } from "next/router";
+
 export default function DeleteOne({ setData, setDatas, postId, author }) {
+  //Variables
   const router = useRouter();
   const { isLogged, token, userId, isAdmin } = useContext(loginContext);
   const [deletePost, setDeletePost] = useState(false);
   const [error, setError] = useState("");
+
+  //Call to action
   const deleteAction = () => {
     setDeletePost(!deletePost);
   };
+
+  //Retrieve data posts
   async function getData() {
     try {
       const request = await fetch(
@@ -34,6 +41,7 @@ export default function DeleteOne({ setData, setDatas, postId, author }) {
     }
   }
 
+  //Delete button form
   const handleDelete = (e) => {
     e.preventDefault();
     axios({
@@ -61,6 +69,7 @@ export default function DeleteOne({ setData, setDatas, postId, author }) {
         console.log(error);
       });
   };
+
   return (
     <Fragment>
       {(isLogged && userId === author) || isAdmin === true ? (
@@ -70,6 +79,7 @@ export default function DeleteOne({ setData, setDatas, postId, author }) {
             label="Supprimer"
             onClick={deleteAction}
           />
+
           <Dialog
             className="dialog"
             header="Supprimer un post"
@@ -84,6 +94,7 @@ export default function DeleteOne({ setData, setDatas, postId, author }) {
               severity="warn"
               text="La suppression de ce post entrainera la perte définitive de tous contenus y compris les réponses liés à celui-ci"
             />
+
             <form className="p-fluid">
               <div className="field">
                 <span className="p-buttonset">
@@ -101,7 +112,9 @@ export default function DeleteOne({ setData, setDatas, postId, author }) {
                   />
                 </span>
               </div>
+
               <Divider />
+
               {error ? <Message severity="error" text={error} /> : null}
             </form>
           </Dialog>

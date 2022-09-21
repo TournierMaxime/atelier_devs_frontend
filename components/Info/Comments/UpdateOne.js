@@ -8,6 +8,7 @@ import { Message } from "primereact/message";
 import { Editor } from "primereact/editor";
 import { headerTemplate } from "../../Functions/Toolbar";
 import axios from "axios";
+
 export default function UpdateOne({
   setData,
   postId,
@@ -25,6 +26,7 @@ export default function UpdateOne({
   const updateAction = () => {
     setUpdatePost(!updatePost);
   };
+
   //Retrieve data comments
   async function getData() {
     try {
@@ -44,10 +46,12 @@ export default function UpdateOne({
       console.log(error);
     }
   }
+
   //Form update comment
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = { message };
+
     if (message === "") {
       return setError("Votre commentaire est vide");
     }
@@ -77,6 +81,7 @@ export default function UpdateOne({
     setSuccess("");
     setError("");
   };
+
   return (
     <Fragment>
       {isLogged && userId === author ? (
@@ -109,8 +114,10 @@ export default function UpdateOne({
                 />
                 <Divider />
               </div>
+
               <Button type="submit" label="Submit" className="mt-2" />
               <Divider />
+
               {error ? <Message severity="error" text={error} /> : null}
               {success ? <Message severity="success" text={success} /> : null}
             </form>

@@ -1,3 +1,4 @@
+//Imports
 import { useState, useContext, Fragment } from "react";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
@@ -11,6 +12,7 @@ import SignUp from "./SignUp";
 import ResetPassword from "./ResetPassword";
 import { useRouter } from "next/router";
 import { Card } from "primereact/card";
+
 export default function Login() {
   //Variables
   const router = useRouter();
@@ -20,6 +22,7 @@ export default function Login() {
   const [error, setError] = useState(null);
   const [signUpDialog, setSignUpDialog] = useState(false);
   const [resetPasswordDialog, setResetPasswordDialog] = useState(false);
+  //Call to actions
   const toggleSignUp = () => {
     setSignUpDialog(!signUpDialog);
   };
@@ -49,12 +52,10 @@ export default function Login() {
         "Content-Type": "application/json",
       },
     })
-      //.then((response) => response.json())
       .then((res) => {
         localStorage.setItem("userConnected", JSON.stringify(res));
         setSuccess("Connexion réussie");
         setIsLogged(true);
-        console.log(res.data.userId);
         router.push(`/${res.data.userId}`);
       })
       .catch((error) => {
@@ -65,11 +66,13 @@ export default function Login() {
     setError("");
     setSuccess("");
   };
+
   return (
     <Fragment>
       <div className="flex justify-content-center login m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
         <Card className="card">
           <h5 className="text-center">Connexion</h5>
+
           <form onSubmit={onSubmit} className="p-fluid">
             <div className="field">
               <span className="p-float-label p-input-icon-right">
@@ -84,6 +87,7 @@ export default function Login() {
                 <label>Email*</label>
               </span>
             </div>
+
             <div className="field">
               <span className="p-float-label">
                 <Password
@@ -102,16 +106,21 @@ export default function Login() {
             <div className="field text-center">
               <a onClick={toggleSignUp}>Inscription</a>
             </div>
+
             <div className="field text-center">
               <a onClick={toggleResetPassword}>Mot de passe oublié ?</a>
             </div>
+
             <Button type="submit" label="Submit" className="mt-2" />
+
             <Divider />
+
             {error ? <Message severity="error" text={error} /> : null}
             {success ? <Message severity="success" text={success} /> : null}
           </form>
         </Card>
       </div>
+
       {signUpDialog ? (
         <Dialog
           className="dialog"
@@ -125,6 +134,7 @@ export default function Login() {
           <SignUp />
         </Dialog>
       ) : null}
+
       {resetPasswordDialog ? (
         <Dialog
           className="dialog"

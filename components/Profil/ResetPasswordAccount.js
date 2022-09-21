@@ -1,3 +1,4 @@
+//Imports
 import axios from "axios";
 import { useState, useEffect, Fragment } from "react";
 import { Message } from "primereact/message";
@@ -6,6 +7,7 @@ import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { regexPassword } from "../Functions/Regex";
 import { Card } from "primereact/card";
+
 export default function ResetPasswordAccount({ id }) {
   //Variables
   const [data, setData] = useState({
@@ -15,6 +17,7 @@ export default function ResetPasswordAccount({ id }) {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [dataLoaded, setDataLoaded] = useState(true);
+
   //onChange data
   const handleChange = (e) => {
     const value = e.target.value;
@@ -23,19 +26,24 @@ export default function ResetPasswordAccount({ id }) {
       [e.target.name]: value,
     });
   };
+
   //Creation post form
   const onSubmitPassword = (e) => {
     e.preventDefault();
+    //Data send
     const formData = {
       password: data.password,
       confirmNewPassword: data.confirmNewPassword,
     };
+
     if (data.password === "" && data.confirmNewPassword === "") {
       return setError("Veuillez renseigner tous les champs");
     }
+
     if (data.password !== data.confirmNewPassword) {
       return setError("Les mots de passe ne correspondent pas");
     }
+
     axios({
       url: `${process.env.URL_BACKEND}/api/auth/resetPassword/${id}`,
       method: "POST",
@@ -56,6 +64,8 @@ export default function ResetPasswordAccount({ id }) {
     setError("");
     setSuccess("");
   };
+
+  //Message password prerequires
   const footer = (
     <Fragment>
       <Divider />
@@ -69,6 +79,8 @@ export default function ResetPasswordAccount({ id }) {
       </ul>
     </Fragment>
   );
+
+  //Update the state
   useEffect(() => {
     //Retrieve data for a single movie
     async function getDatas() {
@@ -87,6 +99,7 @@ ${process.env.URL_BACKEND}/api/auth/resetPassword/${id}`);
     }
     getDatas();
   }, []); //eslint-disable-line
+
   return (
     <Fragment>
       {dataLoaded ? (
@@ -95,10 +108,10 @@ ${process.env.URL_BACKEND}/api/auth/resetPassword/${id}`);
         </div>
       ) : (
         <Fragment>
-          {" "}
           <div className="flex justify-content-center login m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
             <Card className="card flex justify-content-center">
               <h5 className="text-center">Récupération de mot de passe</h5>
+
               <form onSubmit={onSubmitPassword} className="p-fluid">
                 <div className="field">
                   <label>Nouveau mot de passe</label>
@@ -115,16 +128,15 @@ ${process.env.URL_BACKEND}/api/auth/resetPassword/${id}`);
                       className="p-error"
                       style={{ display: data.password ? null : "none" }}
                     >
-                      <Message
-                        className="message"
-                        severity="error"
-                        text="Le mot de passe doit contenir au moins : 8 caractères minimum, une majuscule, une minuscule, un chiffre, et un caractère spécial"
-                      />
+                      Le mot de passe doit contenir au moins : 8 caractères
+                      minimum, une majuscule, une minuscule, un chiffre, et un
+                      caractère spécial
                     </small>
                   ) : (
                     <small className="p-success">Password valide</small>
                   )}
                   <Divider />
+
                   <label>Confirmez mot de passe</label>
                   <Password
                     name="confirmNewPassword"
@@ -141,23 +153,24 @@ ${process.env.URL_BACKEND}/api/auth/resetPassword/${id}`);
                         display: data.confirmNewPassword ? null : "none",
                       }}
                     >
-                      <Message
-                        className="message"
-                        severity="error"
-                        text="Le mot de passe doit contenir au moins : 8 caractères minimum, une majuscule, une minuscule, un chiffre, et un caractère spécial"
-                      />
+                      Le mot de passe doit contenir au moins : 8 caractères
+                      minimum, une majuscule, une minuscule, un chiffre, et un
+                      caractère spécial
                     </small>
                   ) : (
                     <small className="p-success">Password valide</small>
                   )}
                 </div>
                 <Divider />
+
                 <Button
                   type="submit"
                   label="Modifier mot de passe"
                   className="mt-2"
                 />
+
                 <Divider />
+
                 {error ? <Message severity="error" text={error} /> : null}
                 {success ? <Message severity="success" text={success} /> : null}
               </form>

@@ -1,3 +1,4 @@
+//Imports
 import { Fragment, useState } from "react";
 import { Card } from "primereact/card";
 import { Message } from "primereact/message";
@@ -6,11 +7,14 @@ import { Divider } from "primereact/divider";
 import { Button } from "primereact/button";
 import { regexEmail } from "../Functions/Regex";
 import axios from "axios";
+
 export default function UpdateEmail({ id, datas, setDatas, token }) {
+  //Variables
   const [email, setEmail] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  //Retrieve data post
+
+  //Retrieve data users
   async function getData() {
     try {
       const request = await fetch(
@@ -34,10 +38,13 @@ export default function UpdateEmail({ id, datas, setDatas, token }) {
   //Creation post form
   const onSubmitEmail = (e) => {
     e.preventDefault();
+    //Data send
     const formData = { email };
+
     if (email === "") {
       return setError("Veuillez renseigner le champs email");
     }
+
     axios({
       url: `${process.env.URL_BACKEND}/api/users/${id}/setEmail`,
       method: "PUT",
@@ -61,12 +68,14 @@ export default function UpdateEmail({ id, datas, setDatas, token }) {
     setError("");
     setSuccess("");
   };
+
   return (
     <Fragment>
       <Card className="boxShadow flex justify-content-center m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
         <form onSubmit={onSubmitEmail} className="p-fluid">
           <h3>Modifier Email</h3>
           <Divider />
+
           <div className="field">
             <label>Email</label>
             <InputText
@@ -87,9 +96,13 @@ export default function UpdateEmail({ id, datas, setDatas, token }) {
               <small className="p-success">Email valide.</small>
             )}
           </div>
+
           <Divider />
+
           <Button type="submit" label="Modifier Email" className="mt-2" />
+
           <Divider />
+
           {error ? <Message severity="error" text={error} /> : null}
           {success ? <Message severity="success" text={success} /> : null}
         </form>

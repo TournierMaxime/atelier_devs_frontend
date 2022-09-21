@@ -1,3 +1,4 @@
+//Imports
 import DeleteAccount from "../Profil/DeleteAccount";
 import { useEffect, useState, useContext, Fragment } from "react";
 import { loginContext } from "../../components/Context/context";
@@ -5,10 +6,9 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import moment from "moment";
 import { Paginator } from "primereact/paginator";
 import IsAdmin from "./IsAdmin";
-import { useRouter } from "next/router";
+
 export default function Users({ setDatas }) {
   //Variables
-  const router = useRouter();
   const { token, setIsLogged } = useContext(loginContext);
   const [data, setData] = useState([]);
   const [dataloaded, setDataLoaded] = useState(true);
@@ -20,10 +20,10 @@ export default function Users({ setDatas }) {
     setBasicRows(event.rows);
     setCurrentPage(event.page + 1);
   };
-  console.log(router);
+
   //Update the state
   useEffect(() => {
-    //Retrieve data post
+    //Retrieve data users
     async function getData() {
       try {
         const request = await fetch(
@@ -51,6 +51,7 @@ export default function Users({ setDatas }) {
     getData();
   }, [currentPage, token, setDatas]); //eslint-disable-line
 
+  //Data in tbody
   const tbody = data?.rows?.map((i, index) => {
     return (
       <tbody key={index} className="p-datatable-tbody">
@@ -77,6 +78,7 @@ export default function Users({ setDatas }) {
       </tbody>
     );
   });
+
   return (
     <Fragment>
       {dataloaded ? (
@@ -88,6 +90,7 @@ export default function Users({ setDatas }) {
             onPageChange={onBasicPageChange}
             pageLinkSize={3}
           />
+
           <div className="p-datatable p-component p-datatable-responsive-scroll">
             <div className="p-datatable-wrapper">
               <table

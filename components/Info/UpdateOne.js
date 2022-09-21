@@ -1,3 +1,4 @@
+//Imports
 import { Fragment, useState, useContext, useEffect } from "react";
 import { Button } from "primereact/button";
 import { Message } from "primereact/message";
@@ -10,6 +11,7 @@ import { Dialog } from "primereact/dialog";
 import { headerTemplate } from "../Functions/Toolbar";
 import { loginContext } from "../Context/context";
 import { useRouter } from "next/router";
+
 export default function UpdateOne({
   postId,
   token,
@@ -19,6 +21,7 @@ export default function UpdateOne({
   image,
   author,
 }) {
+  //Variables
   const [titlePost, setTitlePost] = useState(title);
   const [messagePost, setMessagePost] = useState(message);
   const [imagePost, setImagePost] = useState(image);
@@ -26,8 +29,8 @@ export default function UpdateOne({
   const [error, setError] = useState("");
   const { isLogged, userId } = useContext(loginContext);
   const router = useRouter();
-
   const [updateDialog, setUpdateDialog] = useState(false);
+  //Call to action
   const toggleUpdate = () => {
     setUpdateDialog(!updateDialog);
   };
@@ -57,9 +60,15 @@ export default function UpdateOne({
   //Creation post form
   const onSubmit = (e) => {
     e.preventDefault();
+    //Data send
     const formData = new FormData();
     formData.append("title", titlePost);
     formData.append("message", messagePost);
+
+    if (titlePost === "" && messagePost === "") {
+      return setError("Vide");
+    }
+
     if (imagePost !== null) {
       formData.append("image", imagePost);
     }
@@ -85,9 +94,8 @@ export default function UpdateOne({
       .catch((error) => {
         console.log(error);
       });
-    setTitlePost("");
-    setMessagePost("");
-    setImagePost("");
+    setError("");
+    setSuccess("");
   };
 
   return (
@@ -121,20 +129,25 @@ export default function UpdateOne({
                     onChange={(e) => setTitlePost(e.target.value)}
                     placeholder="Titre du post*"
                   />
+
                   <Divider />
+
                   <label>Message</label>
                   <Editor
                     value={messagePost}
                     name="message"
                     type="text"
                     className="editor"
+                    required
                     placeholder="Contenu du message*"
                     onTextChange={(e) => setMessagePost(e.htmlValue)}
                     headerTemplate={headerTemplate}
                     style={{ height: "200px" }}
                   />
+
                   <Divider />
                   <Divider />
+
                   <label>Fichier Image</label>
                   <FileUpload
                     mode="basic"
@@ -146,10 +159,12 @@ export default function UpdateOne({
                     type="file"
                   />
                 </div>
+
                 <Divider />
 
                 <Button type="submit" label="Poster" className="mt-2" />
                 <Divider />
+
                 {error ? <Message severity="error" text={error} /> : null}
                 {success ? <Message severity="success" text={success} /> : null}
               </form>

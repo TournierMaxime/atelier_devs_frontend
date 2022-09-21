@@ -7,6 +7,7 @@ import { loginContext } from "../../Context/context";
 import { Message } from "primereact/message";
 import axios from "axios";
 import { useRouter } from "next/router";
+
 export default function DeleteOne({
   setData,
   setDatas,
@@ -23,6 +24,7 @@ export default function DeleteOne({
   const deleteAction = () => {
     setDeleteComment(!deleteComment);
   };
+
   //Retrieve data comments
   async function getData() {
     try {

@@ -9,6 +9,7 @@ import { Dialog } from "primereact/dialog";
 import { headerTemplate } from "../../Functions/Toolbar";
 import axios from "axios";
 import { loginContext } from "../../Context/context";
+
 export default function Create({ setData, postId }) {
   //Variables
   const { isLogged, token } = useContext(loginContext);
@@ -16,9 +17,11 @@ export default function Create({ setData, postId }) {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const [createDialog, setCreateDialog] = useState(false);
+  //Call to action
   const toggleCreate = () => {
     setCreateDialog(!createDialog);
   };
+
   //Retrieve data comments
   async function getData() {
     try {
@@ -33,30 +36,34 @@ export default function Create({ setData, postId }) {
       );
       const response = request;
       const data = await response.json();
-      setData(data);
+      if (data) {
+        setData(data);
+      }
     } catch (error) {
       console.log(error);
     }
   }
+
   //Form for create a comment
   const onSubmit = (e) => {
     e.preventDefault();
+    //Data send
     const formData = { message };
 
-    axios({
-      method: "post",
-      url: `${process.env.URL_BACKEND}/api/posts/${postId}/comment/new`,
-      data: formData,
+    fetch(`${process.env.URL_BACKEND}/api/posts/${postId}/comment/new`, {
+      method: "POST",
+      body: JSON.stringify(formData),
       headers: {
         Authorization: `Bearer ` + token,
         "Content-Type": "application/json",
       },
     })
+      .then((response) => response.json())
       .then((res) => {
         if (res.error) {
           setError(res.error);
         }
-        setSuccess(res.data.message);
+        setSuccess(res.message);
         setData(formData);
         getData();
       })
@@ -67,14 +74,17 @@ export default function Create({ setData, postId }) {
     setSuccess("");
     setError("");
   };
+
   return (
     <Fragment>
       {isLogged ? (
         <Fragment>
           <Divider />
+
           <div className="m-auto">
             <Button onClick={toggleCreate}>Poster un commentaire</Button>
           </div>
+
           {createDialog ? (
             <Dialog
               className="dialog"
@@ -100,8 +110,10 @@ export default function Create({ setData, postId }) {
                     />
                     <Divider />
                   </div>
+
                   <Button type="submit" label="Commenter" className="mt-2" />
                   <Divider />
+
                   {error ? <Message severity="error" text={error} /> : null}
                   {success ? (
                     <Message severity="success" text={success} />
