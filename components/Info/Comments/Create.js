@@ -66,6 +66,7 @@ export default function Create({ setData, postId }) {
         setSuccess(res.message);
         setData(formData);
         getData();
+        toggleCreate();
       })
       .catch((error) => {
         console.log(error);

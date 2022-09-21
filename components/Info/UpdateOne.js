@@ -39,7 +39,7 @@ export default function UpdateOne({
   async function getData() {
     try {
       const request = await fetch(
-        `${process.env.URL_BACKEND}/api/posts?page=1`,
+        `${process.env.URL_BACKEND}/api/posts/${postId}`,
         {
           method: "GET",
           headers: {
@@ -65,8 +65,10 @@ export default function UpdateOne({
     formData.append("title", titlePost);
     formData.append("message", messagePost);
 
-    if (titlePost === "" && messagePost === "") {
-      return setError("Vide");
+    if (titlePost === "" || messagePost === "") {
+      return setError(
+        "Le titre et le contenu du post n'ont pas été renseignés"
+      );
     }
 
     if (imagePost !== null) {
@@ -89,6 +91,7 @@ export default function UpdateOne({
         }
         setData(formData);
         getData();
+        toggleUpdate();
         router.push(`/info/${postId}`);
       })
       .catch((error) => {

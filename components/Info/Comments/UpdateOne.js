@@ -73,6 +73,7 @@ export default function UpdateOne({
         }
         setData(formData);
         getData();
+        updateAction();
       })
       .catch((error) => {
         console.log(error);
