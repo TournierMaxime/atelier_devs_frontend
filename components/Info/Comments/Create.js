@@ -14,8 +14,8 @@ export default function Create({ setData, postId }) {
   //Variables
   const { isLogged, token } = useContext(loginContext);
   const [message, setMessage] = useState("");
-  const [success, setSuccess] = useState(null);
-  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const [createDialog, setCreateDialog] = useState(false);
   //Call to action
   const toggleCreate = () => {
@@ -66,14 +66,16 @@ export default function Create({ setData, postId }) {
         setSuccess(res.message);
         setData(formData);
         getData();
-        toggleCreate();
+        setSuccess("");
+        setError("");
+        if (message !== "") {
+          toggleCreate();
+        }
       })
       .catch((error) => {
         console.log(error);
       });
     setMessage("");
-    setSuccess("");
-    setError("");
   };
 
   return (

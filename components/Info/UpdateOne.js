@@ -91,12 +91,19 @@ export default function UpdateOne({
         }
         setData(formData);
         getData();
-        toggleUpdate();
+        setError("");
+        setSuccess("");
+        if (titlePost !== "" || messagePost !== "") {
+          toggleUpdate();
+        }
         router.push(`/info/${postId}`);
       })
       .catch((error) => {
         console.log(error);
       });
+    setTitlePost("");
+    setMessagePost("");
+    setImagePost("");
     setError("");
     setSuccess("");
   };

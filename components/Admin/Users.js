@@ -99,32 +99,32 @@ export default function Users({ setDatas }) {
               >
                 <thead className="p-datatable-thead">
                   <tr role="row">
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>ID</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Prénom</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Nom</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Création</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Administrateur</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Suppression</span>
                       </div>

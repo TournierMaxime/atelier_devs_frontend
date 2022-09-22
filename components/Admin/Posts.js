@@ -85,22 +85,22 @@ export default function Posts() {
               >
                 <thead className="p-datatable-thead">
                   <tr role="row">
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>ID</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Titre</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Création</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Suppression</span>
                       </div>

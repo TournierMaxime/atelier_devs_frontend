@@ -95,27 +95,27 @@ export default function Comments() {
               >
                 <thead className="p-datatable-thead">
                   <tr role="row">
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>ID</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>PostID</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Message</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Création</span>
                       </div>
                     </th>
-                    <th className role="columnheader">
+                    <th role="columnheader">
                       <div className="p-column-header-content">
                         <span>Suppression</span>
                       </div>

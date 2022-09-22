@@ -3,7 +3,6 @@ import Create from "./Create";
 import UpdateOne from "./UpdateOne";
 import DeleteOne from "./DeleteOne";
 import { Fragment, useContext, useEffect, useState } from "react";
-import { Dialog } from "primereact/dialog";
 import { loginContext } from "../Context/context";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
@@ -22,7 +21,6 @@ export default function Info() {
   const { isLogged, token } = useContext(loginContext);
   const [data, setData] = useState([]);
   const [dataloaded, setDataLoaded] = useState(true);
-  const [createDialog, setCreateDialog] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [basicFirst, setBasicFirst] = useState(1);
   const [basicRows, setBasicRows] = useState(10);
@@ -30,11 +28,6 @@ export default function Info() {
     setBasicFirst(event.first);
     setBasicRows(event.rows);
     setCurrentPage(event.page + 1);
-  };
-
-  //Call to action
-  const toggleCreate = () => {
-    setCreateDialog(!createDialog);
   };
 
   //Update the state
@@ -75,9 +68,7 @@ export default function Info() {
           <Divider />
 
           {isLogged ? (
-            <div className="col-6 offset-col-3 m-auto flex justify-content-center">
-              <Button onClick={toggleCreate}>Poster du contenu</Button>
-            </div>
+            <Create isLogged={isLogged} token={token} setData={setData} />
           ) : null}
 
           <Divider />
@@ -186,22 +177,6 @@ export default function Info() {
               </Fragment>
             )}
           </Fragment>
-
-          <Divider />
-
-          {createDialog ? (
-            <Dialog
-              className="dialog"
-              header="Creer une info"
-              modal
-              closeOnEscape
-              draggable={false}
-              onHide={toggleCreate}
-              visible={createDialog}
-            >
-              <Create isLogged={isLogged} token={token} setData={setData} />
-            </Dialog>
-          ) : null}
         </Fragment>
       )}
     </Fragment>

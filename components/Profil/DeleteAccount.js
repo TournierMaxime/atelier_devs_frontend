@@ -42,9 +42,6 @@ export default function DeleteAccount({
       const res = await response.json();
       if (res) {
         setData(res.users);
-        setDataLoaded(true);
-      } else {
-        setDataLoaded(false);
       }
     } catch (error) {
       console.log(error);

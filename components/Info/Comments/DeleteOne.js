@@ -19,7 +19,7 @@ export default function DeleteOne({
   const router = useRouter();
   const [deleteComment, setDeleteComment] = useState(false);
   const { isLogged, token, userId, isAdmin } = useContext(loginContext);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   //Call to action for delete a comment
   const deleteAction = () => {
     setDeleteComment(!deleteComment);
@@ -45,6 +45,29 @@ export default function DeleteOne({
       console.log(error);
     }
   }
+
+  //Retrieve data comments
+  async function getDatas() {
+    try {
+      const request = await fetch(
+        `${process.env.URL_BACKEND}/api/admin/comments?page=1`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ` + token,
+          },
+        }
+      );
+      const response = request;
+      const data = await response.json();
+      setData(data);
+      setDatas(data.comments);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   //Form delete comment
   const handleDelete = (e) => {
     e.preventDefault();
@@ -53,12 +76,15 @@ export default function DeleteOne({
       url: `${process.env.URL_BACKEND}/api/posts/comment/${commentId}`,
       headers: {
         Authorization: `Bearer ` + token,
+        "Content-Type": "application/json",
       },
     })
       .then((data) => {
         if (isAdmin === true) {
           setData(data);
           getData();
+          getDatas();
+          setError("");
           if (router.route === "/admin") {
             router.push("/admin");
           } else {
@@ -67,6 +93,7 @@ export default function DeleteOne({
         } else {
           setData(data);
           getData();
+          setError("");
         }
       })
       .catch((error) => {

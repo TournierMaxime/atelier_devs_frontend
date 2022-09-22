@@ -41,7 +41,9 @@ export default function UpdateOne({
       );
       const response = request;
       const data = await response.json();
-      setData(data);
+      if (data) {
+        setData(data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -50,37 +52,42 @@ export default function UpdateOne({
   //Form update comment
   const onSubmit = (e) => {
     e.preventDefault();
-    const formData = { message };
+    const formData = { message: message };
 
-    if (message === "") {
+    if (message === null) {
       return setError("Votre commentaire est vide");
     }
 
-    axios({
-      method: "put",
-      url: `${process.env.URL_BACKEND}/api/posts/${postId}/comment/${commentId}`,
-      data: formData,
-      headers: {
-        Authorization: `Bearer ` + token,
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `${process.env.URL_BACKEND}/api/posts/${postId}/comment/${commentId}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(formData),
+        headers: {
+          Authorization: `Bearer ` + token,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
       .then((res) => {
         if (res.error) {
           setError(res.error);
         } else {
-          setSuccess(res.data.message);
+          setSuccess(res.message);
         }
         setData(formData);
         getData();
-        updateAction();
+        setSuccess("");
+        setError("");
+        if (message !== null) {
+          updateAction();
+        }
       })
       .catch((error) => {
         console.log(error);
       });
     setMessage("");
-    setSuccess("");
-    setError("");
   };
 
   return (
