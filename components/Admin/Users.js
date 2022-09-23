@@ -6,6 +6,8 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import moment from "moment";
 import { Paginator } from "primereact/paginator";
 import IsAdmin from "./IsAdmin";
+import Link from "next/link";
+import { Button } from "primereact/button";
 
 export default function Users({ setDatas }) {
   //Variables
@@ -63,6 +65,16 @@ export default function Users({ setDatas }) {
             {moment(i.created).format("DD/MM/YYYY à HH:mm:ss")}
           </td>
           <td role="cell">
+            <Link href={`/${i.id}`}>
+              <a>
+                <Button
+                  className="p-button-sm p-button-outlined p-button-info p-menubar-end-spacing"
+                  label="Voir Profil"
+                />
+              </a>
+            </Link>
+          </td>
+          <td role="cell">
             <IsAdmin adminRights={i} setData={setData} />
           </td>
           <td role="cell">
@@ -90,49 +102,52 @@ export default function Users({ setDatas }) {
             onPageChange={onBasicPageChange}
             pageLinkSize={3}
           />
-
-          <div className="p-datatable p-component p-datatable-responsive-scroll">
-            <div className="p-datatable-wrapper">
-              <table
-                role="table"
-                className="p-datatable-table m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1"
-              >
-                <thead className="p-datatable-thead">
-                  <tr role="row">
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>ID</span>
-                      </div>
-                    </th>
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>Prénom</span>
-                      </div>
-                    </th>
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>Nom</span>
-                      </div>
-                    </th>
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>Création</span>
-                      </div>
-                    </th>
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>Administrateur</span>
-                      </div>
-                    </th>
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>Suppression</span>
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                {tbody}
-              </table>
+          <div className="m-auto xl:col-8 col-offset-2 lg:col-12 md:col-12 sm:col-12">
+            <div className="p-datatable p-component p-datatable-responsive-scroll">
+              <div className="p-datatable-wrapper">
+                <table role="table" className="p-datatable-table">
+                  <thead className="p-datatable-thead">
+                    <tr role="row">
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>ID</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>Prénom</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>Nom</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>Création</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>Consulter</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>Administrateur</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>Suppression</span>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  {tbody}
+                </table>
+              </div>
             </div>
           </div>
         </Fragment>

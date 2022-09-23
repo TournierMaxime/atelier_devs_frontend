@@ -6,9 +6,13 @@ import moment from "moment";
 import { Paginator } from "primereact/paginator";
 import parse from "html-react-parser";
 import { loginContext } from "../../components/Context/context";
+import Link from "next/link";
+import { Button } from "primereact/button";
+import { useRouter } from "next/router";
 
 export default function Comments() {
   //Variables
+  const router = useRouter();
   const { token } = useContext(loginContext);
   const [data, setData] = useState([]);
   const [dataloaded, setDataLoaded] = useState(true);
@@ -62,7 +66,17 @@ export default function Comments() {
           <td role="cell">
             {moment(i.created).format("DD/MM/YYYY à HH:mm:ss")}
           </td>
-          <td role="cell">
+          <td className="m-0 p-0" role="cell">
+            <Link href={`/info/${i.postId}#id${i.id}`} scroll={false}>
+              <a>
+                <Button
+                  className="p-button-sm p-button-outlined p-button-info p-menubar-end-spacing"
+                  label="Voir"
+                />
+              </a>
+            </Link>
+          </td>
+          <td className="m-0 p-0" role="cell">
             <DeleteOne
               commentId={i.id}
               postId={i.postId}
@@ -86,44 +100,47 @@ export default function Comments() {
             onPageChange={onBasicPageChange}
             pageLinkSize={3}
           />
-
-          <div className="p-datatable p-component p-datatable-responsive-scroll">
-            <div className="p-datatable-wrapper">
-              <table
-                role="table"
-                className="p-datatable-table m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1"
-              >
-                <thead className="p-datatable-thead">
-                  <tr role="row">
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>ID</span>
-                      </div>
-                    </th>
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>PostID</span>
-                      </div>
-                    </th>
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>Message</span>
-                      </div>
-                    </th>
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>Création</span>
-                      </div>
-                    </th>
-                    <th role="columnheader">
-                      <div className="p-column-header-content">
-                        <span>Suppression</span>
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                {tbody}
-              </table>
+          <div className="m-auto xl:col-8 col-offset-2 lg:col-12 md:col-12 sm:col-12">
+            <div className="p-datatable p-component p-datatable-responsive-scroll">
+              <div className="p-datatable-wrapper">
+                <table role="table" className="p-datatable-table">
+                  <thead className="p-datatable-thead">
+                    <tr role="row">
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>ID</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>PostID</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>Message</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>Création</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>Consulter</span>
+                        </div>
+                      </th>
+                      <th role="columnheader">
+                        <div className="p-column-header-content">
+                          <span>Suppression</span>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  {tbody}
+                </table>
+              </div>
             </div>
           </div>
         </Fragment>

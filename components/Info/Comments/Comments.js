@@ -78,7 +78,10 @@ export default function Comments({ postId, author }) {
               {data?.comments?.rows?.map((i, index) => {
                 return (
                   <Fragment key={index}>
-                    <Card className="boxShadow m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1">
+                    <Card
+                      id={`id${i.id}`}
+                      className="boxShadow m-auto xl:col-4 col-offset-4 lg:col-6 col-offset-3 md:col-8 col-offset-2 sm:col-10 col-offset-1"
+                    >
                       <Link href={`/${i.userId}`}>
                         <a>
                           <Chip
