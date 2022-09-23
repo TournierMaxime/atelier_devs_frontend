@@ -8,4 +8,8 @@ Le `.env.example` vous permettra d'avoir plus de précision quand à la marche �
 
 Lancer `npm install` dans le dossier racine.
 
-Puis `npm run dev` ou `npm start` pour lancer l'application.
+Puis `npm run dev` pour lancer l'application.
+
+### Documentation
+
+[Lien vers la documentation de l'api](https://documenter.getpostman.com/view/1788084/2s7YzzkPeG)
