@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    URL_BACKEND: "http://localhost:3100",
+    URL_BACKEND: process.env.URL_BACKEND,
   },
 };
 
